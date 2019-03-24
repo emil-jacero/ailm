@@ -1,6 +1,7 @@
 FLASK_APP=rest_api.py
-
-export POSTGRES_URL="127.0.0.1:5432"
-export POSTGRES_USER="postgres"
-export POSTGRES_PW="postgres"
-export POSTGRES_DB="postgres"
+FLASK_ENV=development
+FLASK_DEBUG=1
+POSTGRES_URL="127.0.0.1:5432"
+POSTGRES_USER="postgres"
+POSTGRES_PW="postgres"
+POSTGRES_DB="postgres"
