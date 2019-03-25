@@ -10,3 +10,9 @@ services:
       POSTGRES_PASSWORD: 'postgres'
     #volumes:
     #  - database_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379

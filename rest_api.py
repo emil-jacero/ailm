@@ -1,4 +1,4 @@
-from app import app, api, ma, db
+from app import app, api, ma, db, celery
 from app.models import ReleaseModel, ImageModel
 from app.serializer import ReleaseSchema, ImageSchema
 from app.offload_functions import get_latest_release, download_image
@@ -6,13 +6,21 @@ from flask_restful import Resource, reqparse
 from flask import request, jsonify, Response
 from datetime import datetime
 import uuid
+from app import add_together
 
 
 root_path = '/home/emil/Development/AILM/images/'
 
+
 release_schema = ReleaseSchema()
 image_schema = ImageSchema()
 
+
+@app.route('/celery', methods=['GET'])
+def run_celery():
+    result = add_together.delay(23, 42)
+    result.wait()  # 65
+    return jsonify(result.result)
 
 @app.route('/api/release', methods=['GET'])
 def get_release():
@@ -135,14 +143,6 @@ def add_image():
 
     return new_image
 """
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
