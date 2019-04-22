@@ -1,4 +1,4 @@
-FLASK_APP=rest_api.py
+FLASK_APP=rest_api
 FLASK_ENV=development
 FLASK_DEBUG=1
 POSTGRES_URL="127.0.0.1:5432"

@@ -3,38 +3,55 @@ import os
 import re
 import requests
 from bs4 import BeautifulSoup
+import uuid
 
 
-def download_image(url, destination, uuid):
-    result = dict()
+class ImageObject:
+    def __init__(self):
+        self.build = None
+        self.uuid = uuid.uuid4()
+        self.name = None
+        self.sha256 = None
+        self.archive_path = None
+        self.archive_filename = None
+        self.file_suffix = None
+        self.source_url = None
+
+
+def download_image(image, archive_path):
+    # v2: ImageObject
+    url = image.source_url
+    uuid_image_name = image.uuid
+
+    # v2: Update archive_path & archive_filename
+    image.archive_path = archive_path
+    image.archive_filename = "{}.temp_img".format(uuid_image_name)
+
     print('Begin download [{}]'.format(url))
-    #uuid_image_name = uuid.uuid4()  # Generate unique id and send to caller later
-    uuid_image_name = uuid  # Get uuid from caller
-
     # Define storage locations on the filesystem
-    file_destination = '{dest}tmp_images/'.format(dest=destination)
-    temp_destination_file = '{temp_dest}{img_name}'.format(temp_dest=file_destination,
-                                                                   img_name=uuid_image_name)
+    #file_destination = '{dest}tmp_images/'.format(dest=archive_path)
+    temp_destination_file = '{dest}tmp_images/{img_name}'.format(dest=archive_path, img_name=image.archive_filename)
     try:
         urllib.request.urlretrieve(url, temp_destination_file)
     except Exception as e:
         raise e
-    #result['uuid'] = '{}'.format(uuid_image_name)
-    result['path'] = temp_destination_file
+
+    result = image
     return result
 
 
 def get_latest_release(distro, release):
-    result = dict()
+    # Instantiate ImageObject
+    image = ImageObject()
     if distro == 'ubuntu':
         # Define URL & other variables (defines all because of clarity)
         url = 'https://cloud-images.ubuntu.com/releases/{rel}/'.format(rel=release, )
         hashfile_url = 'SHA256SUMS'
-        image_hash = ""
-        image_name = ""
-        image_url = ""
-        latest_build = ""
-        image_suffix = ""
+        image_hash = None
+        image_name = None
+        image_url = None
+        latest_build = None
+        image_suffix = None
 
         # Retrieve the latest image url
         match_list = []  # Define match_list for later use
@@ -75,11 +92,12 @@ def get_latest_release(distro, release):
             if re.search(search_string, hash):
                 image_hash = hash.split(' ')[0]
 
-        result['name'] = image_name
-        result['sha256'] = image_hash
-        result['url'] = image_url
-        result['build'] = latest_build
-        result['suffix'] = image_suffix
+        # v2: ImageObject
+        image.name = image_name
+        image.sha256 = image_hash
+        image.source_url = image_url
+        image.build = latest_build
+        image.file_suffix = image_suffix
 
     elif distro == 'centos':
         # Define URL & other variables (defines all because of clarity)
@@ -124,10 +142,17 @@ def get_latest_release(distro, release):
             if re.search(search_string, hash):
                 image_hash = hash.split('  ')[0]
                 image_name = hash.split('  ')[1]
-        result['name'] = image_name
-        result['sha256'] = image_hash
-        result['url'] = image_url
-        result['build'] = latest_build
-        result['suffix'] = image_suffix
 
-    return result
+        # v2: ImageObject
+        image.name = image_name
+        image.sha256 = image_hash
+        image.source_url = image_url
+        image.build = latest_build
+        image.file_suffix = image_suffix
+
+    return image
+
+
+#latest_image = get_latest_release("ubuntu", "18.04")
+#print(latest_image.source_url)
+#download_image(latest_image, "/home/emil/Development/Project_ailo/images/")

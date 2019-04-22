@@ -1,6 +1,5 @@
 from app import ma
 from app.models import ReleaseModel, ImageModel, DistroModel
-#from flask_marshmallow import fields, Schema,
 from marshmallow import fields, Schema
 
 
