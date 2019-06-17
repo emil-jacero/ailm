@@ -58,7 +58,7 @@ class ImageModel(db.Model):
         return ImageModel.query.get(id)
 
     @staticmethod
-    def image_exist(image_sha256):
+    def image_exists(image_sha256):
         exists = db.session.query(db.exists().where(ImageModel.sha256 == image_sha256)).scalar()
         return exists
 

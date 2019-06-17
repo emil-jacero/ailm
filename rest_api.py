@@ -99,7 +99,6 @@ class ImageScheduleUpdate(Resource):
             data['datetime_added'] = datetime.utcnow(),
             data['datetime_modified'] = datetime.utcnow()
 
-
             db_image = ImageModel(data)
             db_image.save()
             result = image_schema.dump(db_image).data
@@ -158,12 +157,12 @@ class ImagesScheduleUpdate(Resource):
 
 
 api_v1 = '/api/v1/'
-api.add_resource(Release, '{}release/'.format(api_v1))
-api.add_resource(Releases, '{}releases/'.format(api_v1))
-api.add_resource(Image, '{}image/'.format(api_v1))
-api.add_resource(Images, '{}images/'.format(api_v1))
-api.add_resource(ImageScheduleUpdate, '{}image/update'.format(api_v1))
-api.add_resource(ImagesScheduleUpdate, '{}images/update'.format(api_v1))
+api.add_resource(Release, f'{api_v1}release')
+api.add_resource(Releases, f'{api_v1}releases')
+api.add_resource(Image, f'{api_v1}image')
+api.add_resource(Images, f'{api_v1}images')
+api.add_resource(ImageScheduleUpdate, f'{api_v1}image/update')
+api.add_resource(ImagesScheduleUpdate, f'{api_v1}images/update')
 
 
 """
@@ -172,8 +171,6 @@ def run_celery():
     result = add_together.delay(23, 42)
     result.wait()  # 65
     return jsonify(result.result)
-
-
 """
 
 if __name__ == '__main__':
