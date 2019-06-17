@@ -13,6 +13,9 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 ma = Marshmallow(app)
 api = Api(app)
+
+
+
 app.config.update(
     CELERY_BROKER_URL='redis://localhost:6379/0',
     CELERY_RESULT_BACKEND='redis://localhost:6379/0'
@@ -24,3 +27,7 @@ def add_together(a, b):
     return a + b
 
 from app import models
+
+## Seed the database
+#import app.seed_db
+# TODO: https://stackoverflow.com/questions/27528627/how-do-i-seed-a-flask-sql-alchemy-database

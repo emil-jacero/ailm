@@ -123,7 +123,7 @@ def get_latest_release(distro, release):
                 #print('DELETE {}'.format(match_all_other_files.group(0)))
             else:
                 match_list.append(build.contents[0])
-        # Sort Alphanumericly
+        # Sort Alphanumerically
         sorted_builds = sorted(match_list, key=lambda item: (int(item.partition(' ')[0])
                                                             if item[0].isdigit() else float('inf'), item))
         # It is nicer to set a variable that is the last in the list

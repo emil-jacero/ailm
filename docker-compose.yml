@@ -24,8 +24,8 @@ services:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: 'postgres'
-    #volumes:
-    #  - database_data:/var/lib/postgresql/data
+    volumes:
+      - /home/emil/Development/Project_ailo/db:/var/lib/postgresql/data
 
   redis:
     image: redis:latest
