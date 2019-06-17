@@ -152,6 +152,28 @@ def get_latest_release(distro, release):
 
     return image
 
+def upload_to_glance(conn, image):
+    """
+    Receive openstacksdk connection and image object.
+    Upload to glance
+    :param conn: Openstacksdk connection object
+    :param image:
+    :return:
+    """
+    image_name = image.name
+    image_filename = image.archive_path
+    disk_format = "qcow2"
+    #--property os_type=linux --property os_version="16.04" --property hw_firmware_type=bios
+    conn.create_image()
+    """
+    name, filename=None,
+            container=None,
+            md5=None, sha256=None,
+            disk_format=None, container_format=None,
+            disable_vendor_agent=True,
+            wait=False, timeout=3600,
+            allow_duplicates=False, meta=None, volume=None, **kwargs):
+    """
 
 #latest_image = get_latest_release("ubuntu", "18.04")
 #print(latest_image.source_url)
