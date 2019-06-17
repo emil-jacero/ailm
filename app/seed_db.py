@@ -1,6 +1,9 @@
+# seed_db.py
+
 from app import db
 from app.models import ImageModel, ReleaseModel, DistroModel
 from datetime import datetime
+
 
 distro1 = dict()
 distro1['name'] = "ubuntu"

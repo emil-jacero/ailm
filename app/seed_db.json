@@ -1,0 +1,56 @@
+[
+  {
+    "target_class": "DistroModel",
+    "data": {
+      "name": "ubuntu",
+      "company": "Canonical",
+      "datetime_added": "2019-01-01 01:01:01",
+      "datetime_modified": "2019-01-01 01:01:01"
+    }
+  },
+  {
+    "target_class": "DistroModel",
+    "data": {
+      "name": "centos",
+      "company": "RedHat",
+      "datetime_added": "2019-01-01 01:01:01",
+      "datetime_modified": "2019-01-01 01:01:01"
+    }
+  },
+  {
+    "target_class": "ReleaseModel",
+    "data": {
+      "name": "16.04",
+      "datetime_added": "2019-01-01 01:01:01",
+      "datetime_modified": "2019-01-01 01:01:01",
+      "distro_id": 1
+    }
+  },
+  {
+    "target_class": "ReleaseModel",
+    "data": {
+      "name": "18.04",
+      "datetime_added": "2019-01-01 01:01:01",
+      "datetime_modified": "2019-01-01 01:01:01",
+      "distro_id": 1
+    }
+  },
+  {
+    "target_class": "ReleaseModel",
+    "data": {
+      "name": 6,
+      "datetime_added": "2019-01-01 01:01:01",
+      "datetime_modified": "2019-01-01 01:01:01",
+      "distro_id": 2
+    }
+  },
+  {
+    "target_class": "ReleaseModel",
+    "data": {
+      "name": 7,
+      "datetime_added": "2019-01-01 01:01:01",
+      "datetime_modified": "2019-01-01 01:01:01",
+      "distro_id": 2
+    }
+  }
+]
