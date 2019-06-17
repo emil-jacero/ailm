@@ -34,7 +34,7 @@ In the far future it may even support generating Windows Server images with cust
 - [ ] Implement simple Bootstrap UI
 
 
-## Environment variables (development)
+## Environment variables (development, only postgres running as docker)
     export FLASK_APP=rest_api
     export FLASK_ENV=development
     
