@@ -159,3 +159,54 @@ class DistroModel(db.Model):
 
     def __repr(self):
         return '<id {}>'.format(self.id)
+
+class CloudModel(db.Model):
+    __tablename__ = 'cloud'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    region = db.Column(db.String(200), nullable=False)
+    url = db.Column(db.String(200), nullable=False)
+    username = db.Column(db.String(60), nullable=False, unique=True)
+    password = db.Column(db.String(100), nullable=False)
+    project_id = db.Column(db.String(32), nullable=False)
+    domain_id = db.Column(db.String(32), nullable=False)
+    datetime_added = db.Column(db.DateTime)
+    datetime_modified = db.Column(db.DateTime)
+
+    # class constructor
+    def __init__(self, data):
+        self.name = data.get('name')
+        self.region = data.get('region')
+        self.url = data.get('url')
+        self.username = data.get('username')
+        self.password = data.get('password')
+        self.project_id = data.get('project_id')
+        self.domain_id = data.get('domain_id')
+        self.datetime_added = data.get('datetime_added')
+        self.datetime_modified = data.get('datetime_modified')
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self, data):
+        for key, item in data.items():
+            setattr(self, key, item)
+        self.datetime_modified = datetime.utcnow()
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @staticmethod
+    def get_all_clouds():
+        return DistroModel.query.all()
+
+    @staticmethod
+    def get_cloud_by_name(name):
+        return ReleaseModel.query.filter_by(name=name).first()
+
+    def __repr(self):
+        return '<id {}>'.format(self.id)
