@@ -58,7 +58,7 @@ class ImageModel(db.Model):
         return ImageModel.query.get(id)
 
     @staticmethod
-    def image_exists(image_sha256):
+    def image_exist(image_sha256):
         exists = db.session.query(db.exists().where(ImageModel.sha256 == image_sha256)).scalar()
         return exists
 
@@ -71,7 +71,8 @@ class ReleaseModel(db.Model):
     __tablename__ = 'release'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    friendly_name = db.Column(db.String(100))
     datetime_added = db.Column(db.DateTime, default=datetime.utcnow())
     datetime_modified = db.Column(db.DateTime, default=datetime.utcnow())
     distro_id = db.Column(db.Integer, db.ForeignKey('distro.id'), nullable=False)
@@ -80,6 +81,7 @@ class ReleaseModel(db.Model):
     # class constructor
     def __init__(self, data):
         self.name = data.get('name')
+        self.friendly_name = data.get('friendly_name')
         self.datetime_added = data.get('datetime_added')
         self.datetime_modified = data.get('datetime_modified')
         self.distro_id = data.get('distro_id')
@@ -111,8 +113,12 @@ class ReleaseModel(db.Model):
         return ReleaseModel.query.get(id)
 
     @staticmethod
-    def get_release_by_name(release_name):
-        return ReleaseModel.query.filter_by(name=release_name).first()
+    def get_release_by_name(name):
+        return ReleaseModel.query.filter_by(name=name).first()
+
+    @staticmethod
+    def get_release_by_friendly_name(name):
+        return ReleaseModel.query.filter_by(name=name).first()
 
     def __repr(self):
         return '<id {}>'.format(self.id)
@@ -123,7 +129,7 @@ class DistroModel(db.Model):
     __tablename__ = 'distro'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), nullable=False)
+    name = db.Column(db.String(60), nullable=False, unique=True)
     company = db.Column(db.String(60), nullable=False)
     datetime_added = db.Column(db.DateTime)
     datetime_modified = db.Column(db.DateTime)
