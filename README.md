@@ -14,7 +14,7 @@ Primarily it will support the most popular cloud ready Linux distributions. In t
 In the far future it may even support generating Windows Server images with custom user scripts.
 
 
-#### Q&A
+## Q&A
 **Question:** Why is this a thing?
 
 **Answer:** The hope is that this tool can keep the OS images up to date and keep the latest ones in Glance.
