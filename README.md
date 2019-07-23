@@ -1,37 +1,27 @@
-      ________  ___       __________ 
-     /_  __/ / / / |     / /  _/ __ \
-      / / / / / /| | /| / // // / / /
-     / / / /_/ / | |/ |/ // // /_/ / 
-    /_/  \____/  |__/|__/___/\____/  
-                                     
+## Description
+This project aims to manage operating system images from different public sources (ex. ubuntu and centos) and keep them up to date. It uses webscraping to get the latest builds of the images and stores them locally or in S3 compatible storage.
 
-## Summary
-This project aims to manage operating system images from different sources (ex. ubuntu and centos) and keep them up to date at a destination storage. It will only support Opentack Glance at this moment.
-
-Tuwio updates the images and keeps the two latest images from each distribution in Glance, hiding the older releases and eventually deletes them entirely.
-
-Primarily it will support the most popular cloud ready Linux distributions. In the future it will support custom images like Windows Server.
-In the far future it may even support generating Windows Server images with custom user scripts.
+Using a customizable schema that defines what image, how many versions and schedule, it will strive to keep that at the destionation location (ex. Glance).
 
 
 ## Q&A
 **Question:** Why is this a thing?
 
-**Answer:** The hope is that this tool can keep the OS images up to date and keep the latest ones in Glance.
+**Answer:** Stop updating images manually! Automation is key.
 
 
 ## Tasks
 - [x] Support Ubuntu
 - [x] Support Centos
-- [ ] Support RedHat (Manually?)
+- [ ] Support RedHat
 - [ ] Support CoreOS
 - [ ] Support Cirros
 - [ ] Support Windows Server (Manually. Maybe automatically in the future)
 - [x] Download to local filesystem
-- [ ] Download to Swift/S3
+- [ ] Download to S3 compatible APIs
 - [ ] Upload to Glance
-- [ ] Implement schedule & Celery workers
-- [ ] Implement simple Bootstrap UI
+- [ ] Design customizable schema
+- [ ] Implement simple web frontend
 
 
 ## Environment variables (development, only postgres running as docker)
